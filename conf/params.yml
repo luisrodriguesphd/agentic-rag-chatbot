@@ -35,7 +35,7 @@ information_retrieval:
 #       https://platform.openai.com/docs/api-reference/assistants/modifyAssistant
 generative_model:
     model_provider: "groq"              # "openai", "groq"
-    model_name: "gemma2-9b-it"          # "gpt-4o", -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
+    model_name: "llama3-70b-8192"       # "gpt-4o", -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
     model_kwargs:                       # top_p
         top_p: 0.7
     generate_kwargs:                    # max_tokens, temperature
@@ -56,10 +56,9 @@ generative_model:
         that is, you must return the links of the pages together with the anser in the following format:
         According to the Ben Uri Gallery and Museum, <your answer to the user question>
         Sources:
-        - [page title 1](link of source 1)
-        - [page title 2](link of source 2)
+        - [<page title 1>](<source 1>)
+        - [<page title 2>](<source 2>)
         ...
-        - [page title n](link of source n)
         """
 
 
