@@ -1,0 +1,11 @@
+# To generate requirements.in and requirements.txtß
+pipreqs
+pip-tools
+
+# To run notebooks
+ipykernel
+
+# To lint code
+isort
+black
+flake8

@@ -1,0 +1,36 @@
+# to read conf and secrets
+python-dotenv
+
+# To manipulate data
+pandas
+
+# to build LLM Apps
+langchain
+langchain-community
+langchain-core
+langchain-huggingface
+
+# to index and retrieve info
+sentence-transformers>=2.3.1
+einops
+chromadb
+
+# to generate text
+langchain-openai
+langchain_groq
+
+# to use tools
+wikipedia
+
+# to evaluate
+#ragas
+#deepeval
+
+# to build the user infertafe
+gradio
+
+
+# Autogenerate requirements.txt via pip-compile with Python 3.11 by the following command:
+#
+#    pip-compile -U --output-file=requirements.txt requirements.in
+#    pip-compile -U --output-file=requirements.txt requirements_dev.in requirements.in

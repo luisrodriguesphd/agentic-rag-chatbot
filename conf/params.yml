@@ -1,0 +1,93 @@
+# Conf
+conf_dir: ["conf"]
+secrets_file: ".env"
+
+
+# Data Indexing
+data_dir: ["data"]
+ingestion_metadata_file: "webpage_ingestion_control.csv"
+job_titles: ["Data Engineer", "Data Scientist", "Data Analyst", "Machine Learning Engineer"]
+
+
+# Embeddings
+embedding_dir: ["data", "03_indexed"]
+embedding_model:
+    model_name: "sentence-transformers/all-mpnet-base-v2" # "sentence-transformers/all-mpnet-base-v2", "nomic-ai/nomic-embed-text-v1.5"
+    model_kwargs:
+        device: "cpu" 
+        trust_remote_code: True
+    encode_kwargs:
+        normalize_embeddings: True
+        batch_size: 4
+    show_progress: True
+
+
+# Information Retrieval
+information_retrieval:
+    number_of_retrieved_docs: 2
+    metadata_returned: ['source', 'title']
+
+
+# LLM / Text Generation
+# Suggestion: huggingface|M4-ai/tau-1.8B; groq|llama3-8b-8192
+# See instructions for parameters: 
+#       https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lab-model-parameters-prompting
+#       https://platform.openai.com/docs/api-reference/assistants/modifyAssistant
+generative_model:
+    model_provider: "groq"              # "openai", "groq"
+    model_name: "gemma2-9b-it"          # "gpt-4o", -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
+    model_kwargs:                       # top_p
+        top_p: 0.7
+    generate_kwargs:                    # max_tokens, temperature
+        max_tokens: 512
+        temperature: 0.3
+    system_message: |
+        """You are an AI assistant specialized in providing detailed information from the \
+        Ben Uri Gallery and Museum database. Your task is to use the 'search_ben_uri_gallery_and_museum' \
+        function to help users—students, researchers, academics, critics, art market professionals, and \
+        collectors find accurate content and answers related to Jewish, Refugee, and Immigrant contributions \
+        to British visual culture. \
+        If you are not sure whether you should use the tool or respond based on your internal knowledge, \ 
+        ask for further clarification. \
+        If you choose to use your internal knowledge to answer a question related to the Ben Uri Gallery \
+        and Museum content (Jewish, Refugee, and Immigrant contributions to British visual culture), \
+        you must always ask the user if you should search the Ben Uri Gallery and Museum database.
+        if you use the tool 'search_ben_uri_gallery_and_museum', you must return the source of information, \
+        that is, you must return the links of the pages together with the anser in the following format:
+        According to the Ben Uri Gallery and Museum, <your answer to the user question>
+        Sources:
+        - [page title 1](link of source 1)
+        - [page title 2](link of source 2)
+        ...
+        - [page title n](link of source n)
+        """
+
+
+# Agent     
+agent:
+    verbose: False
+    tool_names: ["search_ben_uri_gallery_and_museum"]
+
+
+# app
+app_config:
+    host: "0.0.0.0"
+    port: 7860
+app_backend:
+app_frontend:
+    title: "AI Art Assistant"
+    # Good description example: https://huggingface.co/spaces/sam-hq-team/sam-hq/blob/main/app.py
+    description: |
+        ## Welcome to Your AI Art Assistant!
+        
+        This AI assistant is designed to provide expert information about Jewish, Refugee, and Immigrant contributions to British visual culture from the extensive database of the Ben Uri Gallery and Museum.
+
+        Start by typing your question below and explore the rich history and contributions of artists in British visual culture through the Ben Uri Gallery and Museum!
+    examples:
+        [
+            "Hi there! How can you assist me?",
+            "What is Ben Uri Gallery and Museum about?",
+            "Is there any content from Joseph Ross?",
+            "Tell me the most famous painting of the Jewish people.",
+        ]
+        
