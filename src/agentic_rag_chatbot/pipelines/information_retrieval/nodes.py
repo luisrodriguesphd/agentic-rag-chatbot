@@ -46,8 +46,11 @@ def parse_and_stack_docs_as_string(docs: Document, metadata_returned: list[str] 
     for doc in docs:
         string_doc = ""
         for metadata_name in metadata_returned:
-            metadata_content = doc.metadata[metadata_name] 
-            string_doc = "\n".join([string_doc, f"{metadata_name}: {metadata_content}"])
+            try:
+                metadata_content = doc.metadata[metadata_name] 
+                string_doc = "\n".join([string_doc, f"{metadata_name}: {metadata_content}"])
+            except:
+                pass
         string_doc = "\n".join([string_doc, f"content: {doc.page_content}"])
         string_docs = "\n\n".join([string_docs, string_doc])
 
