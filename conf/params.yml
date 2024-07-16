@@ -34,6 +34,7 @@ information_retrieval:
 #       https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lab-model-parameters-prompting
 #       https://platform.openai.com/docs/api-reference/assistants/modifyAssistant
 generative_model:
+    debug_mode: True
     model_provider: "groq"              # "openai", "groq"
     model_name: "llama3-70b-8192"       # "gpt-4o", -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
     model_kwargs:                       # top_p
@@ -80,7 +81,7 @@ generative_model:
 
 # Agent     
 agent:
-    verbose: False
+    verbose: True
     tool_names: ["search_ben_uri_gallery_and_museum"]
 
 

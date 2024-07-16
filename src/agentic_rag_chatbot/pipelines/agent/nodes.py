@@ -14,16 +14,19 @@ from langchain.prompts import (
 
 params = get_params()
 params_generative_model = params['generative_model']
+debug_mode = params_generative_model['debug_mode']
 model_provider = params_generative_model['model_provider']
 model_name = params_generative_model['model_name']
 model_kwargs = params_generative_model['model_kwargs']
+generate_kwargs = params_generative_model['generate_kwargs']
 system_message = params_generative_model['system_message']
 params_agent = params['agent']
 tool_names = params_agent['tool_names']
 
+
 # Load LLM
 
-llm = load_llm(model_provider, model_name, model_kwargs)
+llm = load_llm(model_provider, model_name, model_kwargs, generate_kwargs, debug_mode)
 
 
 # Instantiate a prompt template
