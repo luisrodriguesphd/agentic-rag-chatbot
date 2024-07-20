@@ -14,7 +14,7 @@ embedding_model = params['embedding_model']
 
 # Load embeddings into Chroma from disk
 # See: https://python.langchain.com/docs/integrations/vectorstores/chroma
-embedding_function = load_embedding_model(embedding_model['model_name'], embedding_model['model_kwargs'], embedding_model['encode_kwargs'])
+embedding_function = load_embedding_model(embedding_model['model_provider'], embedding_model['model_name'], embedding_model['model_kwargs'], embedding_model['encode_kwargs'])
 vectordb = Chroma(persist_directory=embedding_dir, embedding_function=embedding_function)
 
 

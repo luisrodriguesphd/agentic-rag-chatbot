@@ -12,13 +12,18 @@ job_titles: ["Data Engineer", "Data Scientist", "Data Analyst", "Machine Learnin
 # Embeddings
 embedding_dir: ["data", "03_indexed"]
 embedding_model:
-    model_name: "sentence-transformers/all-mpnet-base-v2" # "sentence-transformers/all-mpnet-base-v2", "nomic-ai/nomic-embed-text-v1.5"
-    model_kwargs:
-        device: "cpu" 
-        trust_remote_code: True
-    encode_kwargs:
-        normalize_embeddings: True
-        batch_size: 4
+    model_provider: "openai"        # openai, huggingface
+    # [openai] "text-embedding-3-small", "text-embedding-3-large"--
+    # [huggingface] "sentence-transformers/all-mpnet-base-v2", "nomic-ai/nomic-embed-text-v1.5"
+    model_name: "text-embedding-3-large" 
+    model_kwargs:                   # None -- device: "cpu" trust_remote_code: True
+    # [openai] chunk_size: 500,  max_retries: 2, retry_min_seconds: 30, retry_max_seconds: 120 -- 
+    # [huggingface] normalize_embeddings: True, batch_size: 4dimensions: 256
+    encode_kwargs:                  
+        chunk_size: 500
+        max_retries: 2
+        retry_min_seconds: 30
+        retry_max_seconds: 120
     show_progress: True
 
 
@@ -34,14 +39,14 @@ information_retrieval:
 #       https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lab-model-parameters-prompting
 #       https://platform.openai.com/docs/api-reference/assistants/modifyAssistant
 generative_model:
-    debug_mode: True
-    model_provider: "groq"              # "openai", "groq"
-    model_name: "llama3-70b-8192"       # "gpt-4o", -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
+    debug_mode: False
+    model_provider: "openai"            # "openai", "groq"
+    model_name: "gpt-4o-mini"           # "gpt-4o", "gpt-4o-mini" -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
     model_kwargs:                       # top_p
-        top_p: 0.7
+        top_p: 0.1
     generate_kwargs:                    # max_tokens, temperature
         max_tokens: 512
-        temperature: 0.3
+        temperature: 0.1
     system_message: |
         """You are an AI Art Assistant designed to guide users through the Ben Uri Gallery and Museum website. \
         
@@ -81,7 +86,7 @@ generative_model:
 
 # Agent     
 agent:
-    verbose: True
+    verbose: False
     tool_names: ["search_ben_uri_gallery_and_museum"]
 
 

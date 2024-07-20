@@ -19,13 +19,12 @@ embedding_dir = params['embedding_dir']
 embedding_model = params['embedding_model']
 
 
-def extract_parse_and_index_webpages(data_dir: list[str], ingestion_metadata_file: str):
+def extract_parse_and_index_webpages(data_dir: list[str], ingestion_metadata_file: str, min_page_length: int = 200):
 
     # Stage 1 - Get webpages to ingest 
     
     file_path = os.path.join(data_dir, ingestion_metadata_file)
     webpage_ingestion_control = pd.read_csv(file_path)
-
     urls = list(webpage_ingestion_control[webpage_ingestion_control.is_to_ingest]['url'].values)
 
     # Stage 2 - Extract and parse webpages
@@ -34,16 +33,19 @@ def extract_parse_and_index_webpages(data_dir: list[str], ingestion_metadata_fil
 
     # Stage 3 - Clean up the webpage content
 
+    docs_clean = []
     for doc in docs:
         raw_text = doc.page_content
         clean_text = clean_webpage_text(raw_text)
-        doc.page_content = clean_text
+        if len(clean_text) > min_page_length:
+            doc.page_content = clean_text
+            docs_clean.append(doc)
 
     # Stage 4 - Embedd and index documents
 
-    vectordb = index_documents(docs, embedding_dir, embedding_model)
+    vectordb = index_documents(docs_clean, embedding_dir, embedding_model)
 
-    vectordb.persist()
+    print(f"-> Indexed {vectordb._collection.count()} documents")
 
     return vectordb
 
