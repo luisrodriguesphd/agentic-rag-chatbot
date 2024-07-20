@@ -10,8 +10,8 @@ def extract_and_parse_webpages(webpage_urls: str) -> list[Document]:
     """Extract webpages and parse as LangChain's Documents"""
 
     loader = WebBaseLoader(webpage_urls)
-
     loader.requests_per_second = 1
+    loader.continue_on_failure = True
 
     docs = loader.aload()
 
