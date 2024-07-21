@@ -11,6 +11,7 @@ set_secrets()
 
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', None)
+print(f'OPENAI_API_KEY: {OPENAI_API_KEY[-4:]}')
 
 
 def load_huggingface_embedding_model(model_name: str = "sentence-transformers/all-mpnet-base-v2", model_kwargs: dict={}, encode_kwargs: dict={}, show_progress: bool=False):
