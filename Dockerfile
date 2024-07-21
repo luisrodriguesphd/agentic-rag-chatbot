@@ -24,10 +24,10 @@ ENV MPLCONFIGDIR=$MPLCONFIGDIR
 ARG ENTRYPOINT_PATH="./entrypoint.sh"
 ENV ENTRYPOINT_PATH=$ENTRYPOINT_PATH
 
-RUN --mount=type=secret,id=GROQ_API_KEY,mode=0444,required=true
+#RUN --mount=type=secret,id=GROQ_API_KEY,mode=0444,required=true \
 #    echo "GROQ_API_KEY=$(cat /run/secrets/GROQ_API_KEY)"
 
-RUN --mount=type=secret,id=OPENAI_API_KEY,mode=0444,required=true
+#RUN --mount=type=secret,id=OPENAI_API_KEY,mode=0444,required=true \
 #    echo "OPENAI_API_KEY=$(cat /run/secrets/OPENAI_API_KEY)"
 
 # Create the /code/ directory a ser permissions rwe
@@ -61,8 +61,8 @@ RUN mkdir -p $HF_HOME && \
 
 COPY . .
 
-RUN pip install -e . && \
-    python src/agentic_rag_chatbot/pipelines/data_indexing/pipeline.py
+RUN pip install -e .
+#    python src/agentic_rag_chatbot/pipelines/data_indexing/pipeline.py
 
 RUN chmod +x $ENTRYPOINT_PATH
 
