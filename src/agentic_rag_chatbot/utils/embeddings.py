@@ -10,7 +10,7 @@ from agentic_rag_chatbot.utils.config import set_secrets
 set_secrets()
 
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', None)
+openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 
 
 def load_huggingface_embedding_model(model_name: str = "sentence-transformers/all-mpnet-base-v2", model_kwargs: dict={}, encode_kwargs: dict={}, show_progress: bool=False):
@@ -30,7 +30,7 @@ def load_openai_embedding_model(model_name: str = "text-embedding-3-large", mode
     """Load a pretrained text embedding model from OpenAI (API)"""
 
     embedding_model = OpenAIEmbeddings(
-        openai_api_key=OPENAI_API_KEY,
+        openai_api_key=openai_api_key,
         model = model_name,
         model_kwargs=model_kwargs,
         **encode_kwargs,

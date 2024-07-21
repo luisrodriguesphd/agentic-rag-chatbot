@@ -27,9 +27,6 @@ ENV ENTRYPOINT_PATH=$ENTRYPOINT_PATH
 #RUN --mount=type=secret,id=GROQ_API_KEY,mode=0444,required=true \
 #    echo "GROQ_API_KEY=$(cat /run/secrets/GROQ_API_KEY)"
 
-#RUN --mount=type=secret,id=OPENAI_API_KEY,mode=0444,required=true \
-#    echo "OPENAI_API_KEY=$(cat /run/secrets/OPENAI_API_KEY)"
-
 # Create the /code/ directory a ser permissions rwe
 RUN mkdir -p /code/&& \
     chmod -R 777 /code/
@@ -60,6 +57,12 @@ RUN mkdir -p $HF_HOME && \
     export MPLCONFIGDIR=$MPLCONFIGDIR
 
 COPY . .
+
+# Mount the secret as a file in the container, and write its content to the .env file
+RUN --mount=type=secret,id=GROQ_API_KEY,mode=0444,required=true \
+    echo "GROQ_API_KEY=$(cat /run/secrets/GROQ_API_KEY)" > conf/.env && \
+    --mount=type=secret,id=OPENAI_API_KEY,mode=0444,required=true \
+    echo "OPENAI_API_KEY=$(cat /run/secrets/OPENAI_API_KEY)" >> conf/.env
 
 RUN pip install -e . && \
     python src/agentic_rag_chatbot/pipelines/data_indexing/pipeline.py
