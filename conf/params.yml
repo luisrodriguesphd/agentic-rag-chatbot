@@ -13,18 +13,20 @@ job_titles: ["Data Engineer", "Data Scientist", "Data Analyst", "Machine Learnin
 # Embeddings
 embedding_dir: ["data", "03_indexed"]
 embedding_model:
-    model_provider: "openai"        # openai, huggingface
+    model_provider: "huggingface"        # openai, huggingface
     # [openai] "text-embedding-3-small", "text-embedding-3-large"--
     # [huggingface] "sentence-transformers/all-mpnet-base-v2", "nomic-ai/nomic-embed-text-v1.5"
-    model_name: "text-embedding-3-large" 
-    model_kwargs:                   # None -- device: "cpu" trust_remote_code: True
-    # [openai] chunk_size: 500,  max_retries: 2, retry_min_seconds: 30, retry_max_seconds: 120 -- 
-    # [huggingface] normalize_embeddings: True, batch_size: 4dimensions: 256
+    model_name: "sentence-transformers/all-mpnet-base-v2" 
+    # [openai] None
+    # [huggingface] device: "cpu" trust_remote_code: True
+    model_kwargs:
+        device: "cpu" 
+        trust_remote_code: True
+    # [openai] dimensions: 256 chunk_size: 500,  max_retries: 2, retry_min_seconds: 30, retry_max_seconds: 120 
+    # [huggingface] normalize_embeddings: True batch_size: 4 
     encode_kwargs:                  
-        chunk_size: 500
-        max_retries: 2
-        retry_min_seconds: 30
-        retry_max_seconds: 120
+        normalize_embeddings: True, 
+        batch_size: 4
     show_progress: True
 
 

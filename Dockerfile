@@ -61,8 +61,8 @@ RUN mkdir -p $HF_HOME && \
 
 COPY . .
 
-RUN pip install -e .
-#    python src/agentic_rag_chatbot/pipelines/data_indexing/pipeline.py
+RUN pip install -e . && \
+    python src/agentic_rag_chatbot/pipelines/data_indexing/pipeline.py
 
 RUN chmod +x $ENTRYPOINT_PATH
 
