@@ -1,4 +1,5 @@
 # Conf
+module_name: agentic_rag_chatbot
 conf_dir: ["conf"]
 secrets_file: ".env"
 
@@ -108,7 +109,7 @@ app_frontend:
         [
             "Hi there! How can you assist me?",
             "What is Ben Uri Gallery and Museum about?",
-            "Is there any content from Joseph Ross?",
+            "Is there any content from Mario Dubsky?",
             "Tell me the most famous painting of the Jewish people.",
         ]
         

@@ -12,6 +12,7 @@ import pandas as pd
 
 from agentic_rag_chatbot.utils.config import get_params
 from agentic_rag_chatbot.pipelines.data_indexing.nodes import extract_and_parse_webpages, clean_webpage_text, index_documents
+from agentic_rag_chatbot.utils.logging import logger
 
 
 params = get_params()
@@ -19,33 +20,45 @@ embedding_dir = params['embedding_dir']
 embedding_model = params['embedding_model']
 
 
-def extract_parse_and_index_webpages(data_dir: list[str], ingestion_metadata_file: str, min_page_length: int = 200):
+def extract_parse_and_index_webpages(data_dir: list[str], ingestion_metadata_file: str, min_length_text: int = 500):
+
+    logger.info('Indexing Pipeline - Started')
 
     # Stage 1 - Get webpages to ingest 
+    logger.info('Stage 1 - Get webpages to ingest')
     
     file_path = os.path.join(data_dir, ingestion_metadata_file)
     webpage_ingestion_control = pd.read_csv(file_path)
     urls = list(webpage_ingestion_control[webpage_ingestion_control.is_to_ingest]['url'].values)
 
+    logger.info(f'There are {len(urls)} web pages to process')
+
     # Stage 2 - Extract and parse webpages
+    logger.info('Stage 2 - Extract and parse webpages')
     
     docs = extract_and_parse_webpages(urls)
 
-    # Stage 3 - Clean up the webpage content
+    # Stage 3 - Clean up web page content and delete those that are not long enough
+    logger.info('Stage 3 - Clean up web page content')
 
     docs_clean = []
     for doc in docs:
         raw_text = doc.page_content
         clean_text = clean_webpage_text(raw_text)
-        if len(clean_text) > min_page_length:
+        if len(clean_text) > min_length_text:
             doc.page_content = clean_text
             docs_clean.append(doc)
 
+    logger.info(f'There are {len(urls)} qualified web pages')
+
     # Stage 4 - Embedd and index documents
+    logger.info('Stage 4 - Embedd and index documents')
 
     vectordb = index_documents(docs_clean, embedding_dir, embedding_model)
 
-    print(f"-> Indexed {vectordb._collection.count()} documents")
+    logger.info(f'There are {vectordb._collection.count()} documents indexed')
+
+    logger.info('Indexing Pipeline - Finished')
 
     return vectordb
 
