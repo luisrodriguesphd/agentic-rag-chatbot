@@ -58,15 +58,16 @@ RUN mkdir -p $HF_HOME && \
 
 COPY . .
 
-# Mount the secret as a file in the container, and write its content to the .env file
-RUN --mount=type=secret,id=GROQ_API_KEY,mode=0444,required=true \
-    echo "GROQ_API_KEY=$(cat /run/secrets/GROQ_API_KEY)" > conf/.env && \
-    --mount=type=secret,id=OPENAI_API_KEY,mode=0444,required=true \
-    echo "OPENAI_API_KEY=$(cat /run/secrets/OPENAI_API_KEY)" >> conf/.env
+## Mount the secret as a file in the container, and write its content to the .env file
+#RUN --mount=type=secret,id=GROQ_API_KEY,mode=0444,required=true \
+#    echo "GROQ_API_KEY=$(cat /run/secrets/GROQ_API_KEY)" > conf/.env && \
+#    --mount=type=secret,id=OPENAI_API_KEY,mode=0444,required=true \
+#    echo "OPENAI_API_KEY=$(cat /run/secrets/OPENAI_API_KEY)" >> conf/.env
 
-RUN pip install -e . && \
-    python src/agentic_rag_chatbot/pipelines/data_indexing/pipeline.py
+RUN pip install -e .
 
+# Make the script executable
 RUN chmod +x $ENTRYPOINT_PATH
 
+# Run the application when the container starts
 ENTRYPOINT $ENTRYPOINT_PATH
