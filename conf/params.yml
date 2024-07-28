@@ -46,11 +46,12 @@ generative_model:
     debug_mode: False
     model_provider: "openai"            # "openai", "groq"
     model_name: "gpt-4o-mini"           # "gpt-4o", "gpt-4o-mini" -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
-    model_kwargs:                       # top_p
-        top_p: 0.1
-    generate_kwargs:                    # max_tokens, temperature
+    model_kwargs:                       # [openai] None -- [huggingface] top_p: 0.1
+        
+    generate_kwargs:                    # max_tokens, temperature [openai] top_p: 0.1 [huggingface] None
         max_tokens: 512
         temperature: 0.1
+        top_p: 0.1
     system_message: |
         """You are an AI Art Assistant designed to guide users through the Ben Uri Gallery and Museum website. \
         

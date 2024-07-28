@@ -81,6 +81,9 @@ def load_llm(
         debug_mode: bool = False
     ):
 
+    if model_kwargs is None: model_kwargs = {}
+    if generate_kwargs is None: generate_kwargs = {}
+
     if model_provider=="groq":
         return load_groq_llm(model_name, model_kwargs, generate_kwargs, debug_mode)
     elif model_provider=="openai":

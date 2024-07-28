@@ -3,7 +3,7 @@ import re
 from agentic_rag_chatbot.utils.embeddings import load_embedding_model
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.docstore.document import Document
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 
 
 def extract_and_parse_webpages(webpage_urls: str) -> list[Document]:

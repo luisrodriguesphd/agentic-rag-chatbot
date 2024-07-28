@@ -3,7 +3,7 @@ import json
 
 from agentic_rag_chatbot.utils.config import get_params
 from agentic_rag_chatbot.utils.embeddings import load_embedding_model
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain.docstore.document import Document
 
 
