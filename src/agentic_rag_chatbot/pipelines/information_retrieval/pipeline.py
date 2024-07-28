@@ -7,6 +7,7 @@ This pipeline utilizes the user resume to first pull the most similar vacancy fr
 
 from agentic_rag_chatbot.pipelines.information_retrieval.nodes import retrieve_top_k_docs, parse_and_stack_docs_as_string
 from agentic_rag_chatbot.utils.config import get_params
+from agentic_rag_chatbot.utils.logging import logger
 
 
 params = get_params()
@@ -18,7 +19,9 @@ metadata_returned = params_information_retrieval['metadata_returned']
 def retrieve_parse_and_stack_top_similar_docs_as_string(query: str):
     """Function to retrieve the most similar docs to a query, parse and stack them as a string"""
 
-    # Stage 1 - Retrieve the most similar job
+    logger.info('Retrieve top pages about: {query}')
+
+    # Stage 1 - Retrieve the top similar docs
 
     retrieved_docs = retrieve_top_k_docs(query, k=k)
 
