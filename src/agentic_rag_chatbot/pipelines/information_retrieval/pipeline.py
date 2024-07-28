@@ -19,7 +19,7 @@ metadata_returned = params_information_retrieval['metadata_returned']
 def retrieve_parse_and_stack_top_similar_docs_as_string(query: str):
     """Function to retrieve the most similar docs to a query, parse and stack them as a string"""
 
-    logger.info('Retrieve top pages about: {query}')
+    logger.info(f'Retrieve top pages about: {query}')
 
     # Stage 1 - Retrieve the top similar docs
 
