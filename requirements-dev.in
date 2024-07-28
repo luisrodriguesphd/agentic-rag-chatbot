@@ -1,0 +1,17 @@
+# To generate requirements.in and requirements.txtß
+pipreqs
+pip-tools
+
+# To run notebooks
+ipykernel
+
+# To lint code
+isort
+black
+flake8
+
+
+# Autogenerate requirements.txt via pip-compile with Python 3.11 by the following command:
+#
+#    pip-compile --output-file=requirements-dev.txt requirements-dev.in
+#    pip-compile --output-file=requirements-dev.txt requirements-dev.in requirements.in

@@ -64,6 +64,9 @@ COPY . .
 #    --mount=type=secret,id=OPENAI_API_KEY,mode=0444,required=true \
 #    echo "OPENAI_API_KEY=$(cat /run/secrets/OPENAI_API_KEY)" >> conf/.env
 
+# Create necessary directories and set permissions
+RUN mkdir -p data/03_indexed && chmod -R 777 data/03_indexed
+
 RUN pip install -e .
 
 # Make the script executable
