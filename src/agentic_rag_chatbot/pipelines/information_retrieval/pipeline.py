@@ -1,7 +1,7 @@
 """
 Information Retrieval Pipeline
 
-This pipeline utilizes the user resume to first pull the most similar vacancy from the job database and then get its salary.
+This pipeline fetches the most similar docs to a query based on semantic vector search.
 """
 
 

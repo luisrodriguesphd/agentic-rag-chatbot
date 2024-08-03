@@ -4,10 +4,18 @@ conf_dir: ["conf"]
 secrets_file: ".env"
 
 
+# Data Collection
+data_collection:
+    start_page: "https://benuri.org/"
+    min_length_text_body: 1000
+    max_number_visited_urls: 10
+    max_number_qualified_urls: 300
+
+
 # Data Indexing
-data_dir: ["data"]
-ingestion_metadata_file: "webpage_ingestion_control.csv"
-job_titles: ["Data Engineer", "Data Scientist", "Data Analyst", "Machine Learning Engineer"]
+data_indexing:
+    min_length_text: 500
+    vector_store_name: mongodb  # chroma (local), mongodb (cloud)
 
 
 # Embeddings
@@ -47,7 +55,7 @@ generative_model:
     model_provider: "openai"            # "openai", "groq"
     model_name: "gpt-4o-mini"           # "gpt-4o", "gpt-4o-mini" -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
     model_kwargs:                       # [openai] None -- [huggingface] top_p: 0.1
-        
+
     generate_kwargs:                    # max_tokens, temperature [openai] top_p: 0.1 [huggingface] None
         max_tokens: 512
         temperature: 0.1

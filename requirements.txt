@@ -47,7 +47,7 @@ charset-normalizer==3.3.2
 chroma-hnswlib==0.7.6
     # via chromadb
 chromadb==0.5.5
-    # via -r requirements.in
+    # via langchain-chroma
 click==8.1.7
     # via
     #   typer
@@ -76,7 +76,9 @@ distro==1.9.0
     #   groq
     #   openai
 dnspython==2.6.1
-    # via email-validator
+    # via
+    #   email-validator
+    #   pymongo
 einops==0.8.0
     # via -r requirements.in
 email-validator==2.2.0
@@ -85,6 +87,7 @@ fastapi==0.111.1
     # via
     #   chromadb
     #   gradio
+    #   langchain-chroma
 fastapi-cli==0.0.4
     # via fastapi
 ffmpy==0.3.2
@@ -181,20 +184,26 @@ langchain==0.2.11
     # via
     #   -r requirements.in
     #   langchain-community
+langchain-chroma==0.1.2
+    # via -r requirements.in
 langchain-community==0.2.10
     # via -r requirements.in
 langchain-core==0.2.24
     # via
     #   -r requirements.in
     #   langchain
+    #   langchain-chroma
     #   langchain-community
     #   langchain-groq
     #   langchain-huggingface
+    #   langchain-mongodb
     #   langchain-openai
     #   langchain-text-splitters
 langchain-groq==0.1.6
     # via -r requirements.in
 langchain-huggingface==0.0.3
+    # via -r requirements.in
+langchain-mongodb==0.1.7
     # via -r requirements.in
 langchain-openai==0.1.19
     # via -r requirements.in
@@ -238,7 +247,9 @@ numpy==1.26.4
     #   contourpy
     #   gradio
     #   langchain
+    #   langchain-chroma
     #   langchain-community
+    #   langchain-mongodb
     #   matplotlib
     #   onnxruntime
     #   pandas
@@ -348,6 +359,10 @@ pydub==0.25.1
     # via gradio
 pygments==2.18.0
     # via rich
+pymongo==4.8.0
+    # via
+    #   -r requirements.in
+    #   langchain-mongodb
 pyparsing==3.1.2
     # via matplotlib
 pypika==0.48.9

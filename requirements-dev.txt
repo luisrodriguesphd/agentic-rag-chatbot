@@ -6,7 +6,9 @@
 #
 aiofiles==23.2.1
     # via gradio
-aiohttp==3.9.5
+aiohappyeyeballs==2.3.4
+    # via aiohttp
+aiohttp==3.10.0
     # via
     #   langchain
     #   langchain-community
@@ -41,7 +43,7 @@ beautifulsoup4==4.12.3
     # via
     #   nbconvert
     #   wikipedia
-black==24.4.2
+black==24.8.0
     # via -r requirements-dev.in
 bleach==6.1.0
     # via nbconvert
@@ -62,7 +64,7 @@ charset-normalizer==3.3.2
 chroma-hnswlib==0.7.6
     # via chromadb
 chromadb==0.5.5
-    # via -r requirements.in
+    # via langchain-chroma
 click==8.1.7
     # via
     #   black
@@ -86,7 +88,7 @@ cycler==0.12.1
     # via matplotlib
 dataclasses-json==0.6.7
     # via langchain-community
-debugpy==1.8.2
+debugpy==1.8.3
     # via ipykernel
 decorator==5.1.1
     # via ipython
@@ -102,24 +104,21 @@ distro==1.9.0
     #   groq
     #   openai
 dnspython==2.6.1
-    # via email-validator
+    # via pymongo
 docopt==0.6.2
     # via pipreqs
 einops==0.8.0
     # via -r requirements.in
-email-validator==2.2.0
-    # via fastapi
 executing==2.0.1
     # via stack-data
-fastapi==0.111.1
+fastapi==0.112.0
     # via
     #   chromadb
     #   gradio
-fastapi-cli==0.0.4
-    # via fastapi
+    #   langchain-chroma
 fastjsonschema==2.20.0
     # via nbformat
-ffmpy==0.3.2
+ffmpy==0.4.0
     # via gradio
 filelock==3.15.4
     # via
@@ -145,15 +144,15 @@ google-auth==2.32.0
     # via kubernetes
 googleapis-common-protos==1.63.2
     # via opentelemetry-exporter-otlp-proto-grpc
-gradio==4.39.0
+gradio==4.40.0
     # via -r requirements.in
-gradio-client==1.1.1
+gradio-client==1.2.0
     # via gradio
 greenlet==3.0.3
     # via sqlalchemy
 groq==0.9.0
     # via langchain-groq
-grpcio==1.65.1
+grpcio==1.65.4
     # via
     #   chromadb
     #   opentelemetry-exporter-otlp-proto-grpc
@@ -168,12 +167,11 @@ httptools==0.6.1
 httpx==0.27.0
     # via
     #   chromadb
-    #   fastapi
     #   gradio
     #   gradio-client
     #   groq
     #   openai
-huggingface-hub==0.24.2
+huggingface-hub==0.24.5
     # via
     #   gradio
     #   gradio-client
@@ -186,7 +184,6 @@ humanfriendly==10.0
 idna==3.7
     # via
     #   anyio
-    #   email-validator
     #   httpx
     #   requests
     #   yarl
@@ -208,7 +205,6 @@ jedi==0.19.1
     # via ipython
 jinja2==3.1.4
     # via
-    #   fastapi
     #   gradio
     #   nbconvert
     #   torch
@@ -239,30 +235,36 @@ kiwisolver==1.4.5
     # via matplotlib
 kubernetes==30.1.0
     # via chromadb
-langchain==0.2.11
+langchain==0.2.12
     # via
     #   -r requirements.in
     #   langchain-community
-langchain-community==0.2.10
+langchain-chroma==0.1.2
     # via -r requirements.in
-langchain-core==0.2.24
+langchain-community==0.2.11
+    # via -r requirements.in
+langchain-core==0.2.28
     # via
     #   -r requirements.in
     #   langchain
+    #   langchain-chroma
     #   langchain-community
     #   langchain-groq
     #   langchain-huggingface
+    #   langchain-mongodb
     #   langchain-openai
     #   langchain-text-splitters
-langchain-groq==0.1.6
+langchain-groq==0.1.9
     # via -r requirements.in
 langchain-huggingface==0.0.3
     # via -r requirements.in
-langchain-openai==0.1.19
+langchain-mongodb==0.1.7
+    # via -r requirements.in
+langchain-openai==0.1.20
     # via -r requirements.in
 langchain-text-splitters==0.2.2
     # via langchain
-langsmith==0.1.93
+langsmith==0.1.96
     # via
     #   langchain
     #   langchain-community
@@ -321,7 +323,9 @@ numpy==1.26.4
     #   contourpy
     #   gradio
     #   langchain
+    #   langchain-chroma
     #   langchain-community
+    #   langchain-mongodb
     #   matplotlib
     #   onnxruntime
     #   pandas
@@ -335,7 +339,7 @@ oauthlib==3.2.2
     #   requests-oauthlib
 onnxruntime==1.18.1
     # via chromadb
-openai==1.37.1
+openai==1.38.0
     # via langchain-openai
 opentelemetry-api==1.26.0
     # via
@@ -463,6 +467,10 @@ pygments==2.18.0
     #   ipython
     #   nbconvert
     #   rich
+pymongo==4.8.0
+    # via
+    #   -r requirements.in
+    #   langchain-mongodb
 pyparsing==3.1.2
     # via matplotlib
 pypika==0.48.9
@@ -485,9 +493,7 @@ python-dotenv==1.0.1
     #   -r requirements.in
     #   uvicorn
 python-multipart==0.0.9
-    # via
-    #   fastapi
-    #   gradio
+    # via gradio
 pytz==2024.1
     # via pandas
 pywin32==306
@@ -538,7 +544,7 @@ rpds-py==0.19.1
     #   referencing
 rsa==4.9
     # via google-auth
-ruff==0.5.5
+ruff==0.5.6
     # via gradio
 safetensors==0.4.3
     # via transformers
@@ -633,7 +639,6 @@ transformers==4.43.3
 typer==0.12.3
     # via
     #   chromadb
-    #   fastapi-cli
     #   gradio
 typing-extensions==4.12.2
     # via
@@ -643,6 +648,7 @@ typing-extensions==4.12.2
     #   gradio-client
     #   groq
     #   huggingface-hub
+    #   langchain-core
     #   openai
     #   opentelemetry-sdk
     #   pydantic
@@ -660,10 +666,9 @@ urllib3==2.2.2
     #   gradio
     #   kubernetes
     #   requests
-uvicorn[standard]==0.30.3
+uvicorn[standard]==0.30.5
     # via
     #   chromadb
-    #   fastapi
     #   gradio
 watchfiles==0.22.0
     # via uvicorn
@@ -675,7 +680,7 @@ webencodings==0.5.1
     #   tinycss2
 websocket-client==1.8.0
     # via kubernetes
-websockets==11.0.3
+websockets==12.0
     # via
     #   gradio-client
     #   uvicorn

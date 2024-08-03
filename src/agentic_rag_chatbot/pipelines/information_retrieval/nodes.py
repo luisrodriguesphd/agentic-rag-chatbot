@@ -1,21 +1,18 @@
-import os
-import json
-
 from agentic_rag_chatbot.utils.config import get_params
 from agentic_rag_chatbot.utils.embeddings import load_embedding_model
-from langchain_chroma import Chroma
 from langchain.docstore.document import Document
+from agentic_rag_chatbot.utils.vector_store import load_vector_store
 
 
 params = get_params()
-embedding_dir = params['embedding_dir']
+vector_store_name = params['data_indexing']['vector_store_name']
 embedding_model = params['embedding_model']
 
 
 # Load embeddings into Chroma from disk
 # See: https://python.langchain.com/docs/integrations/vectorstores/chroma
-embedding_function = load_embedding_model(embedding_model['model_provider'], embedding_model['model_name'], embedding_model['model_kwargs'], embedding_model['encode_kwargs'])
-vectordb = Chroma(persist_directory=embedding_dir, embedding_function=embedding_function)
+embedding = load_embedding_model(embedding_model['model_provider'], embedding_model['model_name'], embedding_model['model_kwargs'], embedding_model['encode_kwargs'])
+vectordb = load_vector_store(vector_store_name, embedding)
 
 
 def retrieve_top_k_docs(query: str, k: int=3):

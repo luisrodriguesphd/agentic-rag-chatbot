@@ -1,3 +1,2 @@
-#!/bin/sh
-python ./src/agentic_rag_chatbot/pipelines/data_indexing/pipeline.py
+#!/bin/bash
 python ./src/app/app.py 
