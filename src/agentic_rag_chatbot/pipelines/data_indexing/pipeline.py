@@ -3,74 +3,89 @@ Data Indexing Pipeline
 
 Indexing is the process of organizing data in a way that makes it more efficient to retrieve information later.
 
-This pipeline indexes the job vacancy files on a library compose by a vector database and a embedding model.
+This pipeline takes the preprocessed documents, convert it into embeddings and store everything in a vector store.
 """
 
-
-import os
-import pandas as pd
-
 from agentic_rag_chatbot.utils.config import get_params
-from agentic_rag_chatbot.pipelines.data_indexing.nodes import extract_and_parse_webpages, clean_webpage_text, index_documents
+from agentic_rag_chatbot.pipelines.data_indexing.nodes import extract_and_parse_webpages, clean_webpage_text, parse_ingested_web_data
+from agentic_rag_chatbot.utils.database import get_urls_to_ingest, update_documents
+from agentic_rag_chatbot.utils.embeddings import load_embedding_model
 from agentic_rag_chatbot.utils.logging import logger
+from agentic_rag_chatbot.utils.vector_store import embed_and_store_documents
 
 
 params = get_params()
+min_length_text = params['data_indexing']['min_length_text']
+vector_store_name = params['data_indexing']['vector_store_name']
 embedding_dir = params['embedding_dir']
 embedding_model = params['embedding_model']
 
 
-def extract_parse_and_index_webpages(data_dir: list[str], ingestion_metadata_file: str, min_length_text: int = 500):
+embedding = load_embedding_model(embedding_model['model_provider'], embedding_model['model_name'], embedding_model['model_kwargs'], embedding_model['encode_kwargs'], embedding_model['show_progress'])
+
+
+def extract_parse_and_index_web_pages():
 
     logger.info('Indexing Pipeline - Started')
 
-    # Stage 1 - Get webpages to ingest 
-    logger.info('Stage 1 - Get webpages to ingest')
+    # Stage 1 - Get web pages URLs to ingest 
+    logger.info('Stage 1 - Get web pages URLs to ingest')
     
-    file_path = os.path.join(data_dir, ingestion_metadata_file)
-    webpage_ingestion_control = pd.read_csv(file_path)
-    urls = list(webpage_ingestion_control[webpage_ingestion_control.is_to_ingest]['url'].values)
+    urls = get_urls_to_ingest()
 
     logger.info(f'There are {len(urls)} web pages to process')
 
-    # Stage 2 - Extract and parse webpages
-    logger.info('Stage 2 - Extract and parse webpages')
+    # Stage 2 - Extract and parse web pages
+    logger.info('Stage 2 - Extract and parse web pages')
     
     docs = extract_and_parse_webpages(urls)
 
-    # Stage 3 - Clean up web page content and delete those that are not long enough
+    logger.info(f'There were extracted and parsed {len(docs)} web pages')
+
+    # Stage 3 - Clean up web page content
     logger.info('Stage 3 - Clean up web page content')
 
     docs_clean = []
     for doc in docs:
         raw_text = doc.page_content
         clean_text = clean_webpage_text(raw_text)
-        if len(clean_text) > min_length_text:
-            doc.page_content = clean_text
-            docs_clean.append(doc)
+        doc.page_content = clean_text
+        docs_clean.append(doc)
 
-    logger.info(f'There are {len(urls)} qualified web pages')
+    # Stage 4 - Delete web pages whose content is too short
+    logger.info('Stage 4 - Delete web pages whose content is too short')
 
-    # Stage 4 - Embedd and index documents
-    logger.info('Stage 4 - Embedd and index documents')
+    urls_qualified = []
+    urls_disqualified = []
+    docs_qualified = []
+    for url, doc in zip(urls, docs_clean):
+        if len(doc.page_content) > min_length_text:
+            docs_qualified.append(doc)
+            urls_qualified.append(url)
+        else:
+            urls_disqualified.append(url)
 
-    vectordb = index_documents(docs_clean, embedding_dir, embedding_model)
+    logger.info(f'There are {len(docs_qualified)} qualified web pages')
 
-    logger.info(f'There are {vectordb._collection.count()} documents indexed')
+    # Stage 5 - Embedd and index documents
+    logger.info('Stage 5 - Embedd and index documents')
+
+    if len(urls)>0:
+        embed_and_store_documents(vector_store_name, embedding, docs_qualified)
 
     logger.info('Indexing Pipeline - Finished')
 
-    return vectordb
+    # Stage 6 - Update ingestion control database
+    logger.info('Stage 6 - Update ingestion control database')
+
+    web_data_to_update = parse_ingested_web_data(urls_qualified, urls_disqualified)
+    num_updated_ids = update_documents(web_data_to_update)
+
+    logger.info(f'There were {sum(num_updated_ids)} web pages updated')
 
 
 if __name__ == "__main__":
 
-    # Get parameters
-
-    params = get_params()
-    data_dir = params['data_dir']
-    ingestion_metadata_file = params['ingestion_metadata_file']
-
     # Run pipeline
 
-    extract_parse_and_index_webpages(data_dir, ingestion_metadata_file)
+    extract_parse_and_index_web_pages()

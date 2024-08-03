@@ -1,9 +1,8 @@
 import re
 
-from agentic_rag_chatbot.utils.embeddings import load_embedding_model
+from datetime import date
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.docstore.document import Document
-from langchain_chroma import Chroma
 
 
 def extract_and_parse_webpages(webpage_urls: str) -> list[Document]:
@@ -34,21 +33,24 @@ def clean_webpage_text(text: str):
     return text
 
 
-def index_documents(docs: list[Document], persist_directory: str, embedding_model: dict):
-    """Function to embed and index the documents in Chroma vector database"""
+def parse_ingested_web_data(urls_qualified, urls_disqualified):
+    # Get today's date and format the date as YYYY-MM-DD
+    today = date.today()
+    today_str = today.strftime("%Y-%m-%d")
 
-    # Load a pretrained text embedding model
+    urls = urls_qualified + urls_disqualified
+    is_to_ingest = [False for url in urls]
+    ingestion_date = [today_str for url in urls]
+    ingested_successfully = [True if url in urls_qualified else False for url in urls]
 
-    embedding_function = load_embedding_model(embedding_model['model_provider'], embedding_model['model_name'], embedding_model['model_kwargs'], embedding_model['encode_kwargs'], embedding_model['show_progress'])
+    web_data_to_update = []
+    for url, ii, id, isuc in  zip(urls, is_to_ingest, ingestion_date, ingested_successfully):
+        data = {
+            'url': url,
+            'is_to_ingest': ii,
+            'ingestion_date': id,
+            'ingested_successfully': isuc,
+        }
+        web_data_to_update.append(data)
 
-    # Create text embeddings and store in a vector database Chroma. For more options, see: 
-    #   https://python.langchain.com/docs/modules/data_connection/vectorstores/
-    #   https://python.langchain.com/docs/integrations/vectorstores/chroma
-
-    vectordb = Chroma.from_documents(
-        documents=docs,
-        embedding=embedding_function,
-        persist_directory=persist_directory
-    )
-
-    return vectordb
+    return web_data_to_update

@@ -13,5 +13,4 @@ flake8
 
 # Autogenerate requirements.txt via pip-compile with Python 3.11 by the following command:
 #
-#    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in requirements.in
