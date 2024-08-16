@@ -73,8 +73,6 @@ def extract_parse_and_index_web_pages():
     if len(urls)>0:
         embed_and_store_documents(vector_store_name, embedding, docs_qualified)
 
-    logger.info('Indexing Pipeline - Finished')
-
     # Stage 6 - Update ingestion control database
     logger.info('Stage 6 - Update ingestion control database')
 
@@ -82,6 +80,8 @@ def extract_parse_and_index_web_pages():
     num_updated_ids = update_documents(web_data_to_update)
 
     logger.info(f'There were {sum(num_updated_ids)} web pages updated')
+    
+    logger.info('Indexing Pipeline - Finished')
 
 
 if __name__ == "__main__":
