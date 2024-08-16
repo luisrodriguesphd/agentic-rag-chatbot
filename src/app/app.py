@@ -1,4 +1,5 @@
 import gradio as gr
+import time
 
 from agentic_rag_chatbot.utils.config import get_params
 from agentic_rag_chatbot.pipelines.agent.pipeline import generate_user_response
@@ -20,6 +21,14 @@ def invoke(input, history):
     return output
 
 
+def slow_echo(input, history):
+    output = invoke(input, history)
+    output_tokens = output.split(" ")
+    for i in range(len(output_tokens)):
+        time.sleep(0.1)
+        yield " ".join(output_tokens[: i+1])
+
+
 def vote(data: gr.LikeData):
     if data.liked:
         print("[+1] User upvoted this response:\n" + data.value)
@@ -34,7 +43,7 @@ with gr.Blocks(title=app_frontend['title']) as demo:
     chatbot = gr.Chatbot(placeholder=app_frontend['description'])
     chatbot.like(vote, None, None)
     gr.ChatInterface(
-        fn=invoke, 
+        fn=slow_echo, 
         chatbot=chatbot,
         examples= app_frontend['examples']
     )

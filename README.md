@@ -1,5 +1,5 @@
 ---
-title: Agentic RAG Chatbot
+title: AI Art Assistant
 emoji: 🤖
 colorFrom: pink
 colorTo: blue
