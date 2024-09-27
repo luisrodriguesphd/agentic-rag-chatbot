@@ -27,8 +27,7 @@ langchain-groq
 wikipedia
 
 # to evaluate
-#ragas
-#deepeval
+ragas
 
 # to build the user infertafe
 gradio

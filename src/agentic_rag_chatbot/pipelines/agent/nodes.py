@@ -1,5 +1,6 @@
 import wikipedia
 
+from agentic_rag_chatbot.pipelines.evaluation.pipeline import assess_rag_answer
 from agentic_rag_chatbot.pipelines.information_retrieval.pipeline import retrieve_parse_and_stack_top_similar_docs_as_string
 from agentic_rag_chatbot.utils.config import get_params
 from agentic_rag_chatbot.utils.llm import load_llm
@@ -97,9 +98,13 @@ def search_ben_uri_gallery_and_museum(query: str) -> str:
     return results_stacked_as_string
 
 
+assess_rag_answer = tool(assess_rag_answer)
+
+
 tool_mapping = {
     "search_wikipedia": search_wikipedia,
-    "search_ben_uri_gallery_and_museum": search_ben_uri_gallery_and_museum
+    "search_ben_uri_gallery_and_museum": search_ben_uri_gallery_and_museum,
+    "assess_rag_answer": assess_rag_answer
 }
 
 
