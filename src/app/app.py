@@ -3,6 +3,7 @@ import time
 
 from agentic_rag_chatbot.utils.config import get_params
 from agentic_rag_chatbot.pipelines.agent.pipeline import generate_user_response
+from agentic_rag_chatbot.utils.logging import logger
 from langchain.schema import AIMessage, HumanMessage
 
 
@@ -22,7 +23,9 @@ def invoke(input, history):
 
 
 def slow_echo(input, history):
+    logger.info("Generates an answer to the user's input")
     output = invoke(input, history)
+    logger.info("Displays the generted answer for the user")
     output_tokens = output.split(" ")
     for i in range(len(output_tokens)):
         time.sleep(0.1)
@@ -31,9 +34,11 @@ def slow_echo(input, history):
 
 def vote(data: gr.LikeData):
     if data.liked:
-        print("[+1] User upvoted this response:\n" + data.value)
+        logger.info("[+1] User upvoted the response")
+        #print("[+1] User upvoted this response:\n" + data.value)
     else:
-        print("[-1] User downvoted this response:\n" + data.value)
+        logger.info("[-1] User downvoted the response")
+        #print("[-1] User downvoted this response:\n" + data.value)
 
 
 # Gradio References:
