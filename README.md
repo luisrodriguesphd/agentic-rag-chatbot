@@ -10,7 +10,7 @@ license: apache-2.0
 
 # Agentic RAG Chabot
 
-Agentic RAG (Retrieval-Augmented Generation) Chatbot is an AI system that injects intelligence and autonomy into the traditional chatbot framework by combining three key elements: real-time information retrieval, advanced language generation, and an agentic approach. When a user poses a question or needs information, the chatbot autonomously determines whether to retrieve relevant data from a knowledge base or generate a response based on its existing knowledge. The "agentic" aspect means the chatbot actively identifies the necessary information, seeks it out, and integrates it into its answers to enhance the accuracy and relevance of generated responses.
+Agentic RAG (Retrieval-Augmented Generation) Chatbot is an AI system designed to offer a new level of interactivity and assistance by combining real-time information retrieval with advanced language generation. This approach allows the chatbot to not only provide pre-determined responses but also to dynamically generate new content or autonomously pull up-to-date information as needed to enhance the accuracy and relevance of generated responses, making it an effective tool in varied applications such as the AI Art Assistant for Ben Uri Gallery and Museum.
 
 <a name="toc"/></a>
 ## Table of Contents
@@ -27,34 +27,40 @@ Agentic RAG (Retrieval-Augmented Generation) Chatbot is an AI system that inject
 ## 1. App Overview
 [Back to ToC](#toc)
 
-...
+This section introduces the application of Agentic RAG Chatbot as the AI Art Assistant, specifically tailored for Ben Uri Gallery and Museum. Users can interact with the assistant to explore a rich database focused on Jewish, Refugee, and Immigrant contributions to British visual culture. The assistant is designed to enhance user engagement and provide educational insights through interactive discussions about art and artists.
 
 <a name="howitworks"/></a>
 ## 2. How It Works
 [Back to ToC](#toc)
 
-...
+The AI Art Assistant utilizes a combination of retrieval-augmented generation technology and a curated knowledge base about the artists and artworks featured at Ben Uri Gallery and Museum. When a question is asked, the system decides whether to pull information directly from the knowledge base or to generate a contextual response that synthesizes information into a coherent and informative answer. This process includes:
+1. **User Query Handling**: Receive and parse user queries.
+2. **Information Retrieval**: Fetch relevant data or past inquiries from the knowledge base.
+3. **Response Generation**: Use LLMs to craft responses that are informative, factually accurate, and engaging.
 
 <a name="gettingstarted"/></a>
 ## 3. Getting Started
 [Back to ToC](#toc)
 
-To begin using Agentic RAG chatbot, visit the [application](https://huggingface.co/spaces/luisrodriguesphd/agentic-rag-chatbot) hosted on **Hugging Face Spaces** and follow the on-screen instructions.
+To begin exploring the AI Art Assistant, visit the [application](https://huggingface.co/spaces/luisrodriguesphd/ai-art-assistant) hosted on **Hugging Face Spaces**. Start by typing a question about the Ben Uri collection or artists, and the chatbot will guide you through the rich history and cultural insights available on the museum's website.
 
 <a name="contributing"/></a>
 ## 4. Contributing
 [Back to ToC](#toc)
 
-We welcome contributions from the community to help improve ResumeWorth. If you have suggestions, feedback, or would like to contribute to the development of the platform, please refer to our contribution guidelines.
+Contributions to the Agentic RAG Chatbot, especially those that enhance its application as an AI Art Assistant, are highly welcome. If you're interested in improving the platform, adding more features, or enriching the knowledge base, please refer to our contribution guidelines.
 
 <a name="license"/></a>
 ## 5. License
 [Back to ToC](#toc)
 
-Agentic-RAG Chatbot is provided under a standard open-source license. For more information on licensing, please consult the license file in the repository.
+Agentic-RAG Chatbot is made available under the Apache-2.0 license. This allows for both personal and commercial use, ensuring the project remains open and accessible. For detailed licensing information, please view the license file in the repository.
 
 <a name="author"/></a>
 ## 6. About the Author
 [Back to ToC](#toc)
 
-ResumeWorth was developed by Luis Rodrigues, a seasoned Data Scientist and AI expert. Luis holds extensive experience in leveraging Artificial Intelligence and Machine Learning technologies to develop innovative products and services that deliver great customer experiences and significant business impact. For more details, visit his [LinkedIn profile](https://www.linkedin.com/in/luisrodriguesphd/).
+The Agentic RAG Chatbot was developed by Luis Rodrigues, a seasoned Data Scientist and Machine Learning Engineer.
+Luis holds 9+ years of experience in leveraging Artificial Intelligence and Machine Learning technologies to develop innovative products and services that deliver great customer experiences and significant business impact and is currently specializing in generative AI.
+The AI Art Assistant represents his commitment to advancing how AI can support and enhance user interactions in educational and cultural contexts. 
+For more information on Luis Rodrigues' work and other projects, visit his [LinkedIn profile](https://www.linkedin.com/in/luisrodriguesphd/).
