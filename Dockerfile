@@ -12,7 +12,7 @@ that injects intelligence and autonomy into the traditional chatbot framework \
 by combining three key elements: real-time information retrieval, advanced language \
 generation, and an agentic approach."
 
-ARG REQUIREMENTS_PATH="./requirements.in"
+ARG REQUIREMENTS_PATH="./requirements.txt"
 ENV REQUIREMENTS_PATH=$REQUIREMENTS_PATH
 
 ARG HF_HOME=".cache/huggingface/hub"
