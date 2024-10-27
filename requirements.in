@@ -28,6 +28,7 @@ wikipedia
 
 # to evaluate
 ragas
+datasets
 
 # to build the user infertafe
 gradio
