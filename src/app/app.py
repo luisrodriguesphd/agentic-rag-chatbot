@@ -25,7 +25,7 @@ def invoke(input, history):
 def slow_echo(input, history):
     logger.info("Generates an answer to the user's input")
     output = invoke(input, history)
-    logger.info("Displays the generted answer for the user")
+    logger.info("Displays the generated answer for the user")
     output_tokens = output.split(" ")
     for i in range(len(output_tokens)):
         time.sleep(0.1)
