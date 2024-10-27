@@ -27,7 +27,7 @@ langchain-groq
 wikipedia
 
 # to evaluate
-ragas
+ragas==0.1.18
 datasets
 
 # to build the user infertafe
