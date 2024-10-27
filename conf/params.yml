@@ -53,7 +53,7 @@ information_retrieval:
 generative_model:
     debug_mode: False
     model_provider: "openai"            # "openai", "groq"
-    model_name: "gpt-4o-mini"           # "gpt-4o", "gpt-4o-mini" -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
+    model_name: "gpt-4o"                # "gpt-4o", "gpt-4o-mini" -- "mixtral-8x7b-32768", "llama3-70b-8192", "gemma2-9b-it"
     model_kwargs:                       # [openai] None -- [huggingface] top_p: 0.1
 
     generate_kwargs:                    # max_tokens, temperature [openai] top_p: 0.1 [huggingface] None
@@ -61,7 +61,7 @@ generative_model:
         temperature: 0.1
         top_p: 0.1
     system_message: |
-        """You are an AI Art Assistant designed to engage with visitors, answering questions, \
+        """You are an AI Art Buddy designed to engage with visitors, answering questions, \
         offering art interpretations, and guiding them through the extensive database of Ben Uri \
         Gallery and Museum website content.
         
@@ -87,12 +87,14 @@ generative_model:
         The generated answer must always be assessed in terms of relevance and factual accuracy \
         using the 'assess_rag_answer' tool. \
         This tool generates an evaluation report that scores the answer based on two metrics: answer \
-        faithfulness and answer relevance. \
-        The scores for each metric range from 0 to 1, with higher scores indicating better performance. \
-        Based on these values, you should decide whether the candidate answer should be shared with the user. \
-        Answers with low scores must be discarded, and the reason for this action should be explained \
-        to the user.
-        
+        faithfulness and answer relevance, with scores ranging from 0 to 1. \
+        If either metric is low, it suggests the answer may not fully meet user expectations. \
+        If the faithfulness or relevance score is low, provide the user with a warning about the \
+        relevance and factual accuracy of the answer. \
+        For example: "Please note that the answer may not fully align with the latest or most accurate \
+        information in our database. You may wish to cross-reference other sources or rephrase your \
+        question for more specific details."
+               
         You are prohibeted of answering questions exclusevely based on your internal knowledge! \
         Therefore, you must use the tool 'search_ben_uri_gallery_and_museum' to retrieve information \ 
         from Ben Uri Gallery and Museum website and, if and only if you can not answer the user \
@@ -118,12 +120,12 @@ app_config:
     port: 7860
 app_backend:
 app_frontend:
-    title: "AI Art Assistant"
+    title: "AI Art Buddy"
     # Good description example: https://huggingface.co/spaces/sam-hq-team/sam-hq/blob/main/app.py
     description: |
-        ## Welcome to Ben Uri's AI Art Assistant!
+        ## Welcome to Ben Uri's AI Art Buddy!
 
-        The AI Art Assistant is designed to answer questions, offer art interpretations, and guide users through the Ben Uri Gallery and Museum website.
+        The AI Art Buddy is designed to answer questions, offer art interpretations, and guide users through the Ben Uri Gallery and Museum website.
 
         Ben Uri Gallery and Museum website has an extensive database of content about Jewish, Refugee, and Immigrant contributions to British visual culture.
 
