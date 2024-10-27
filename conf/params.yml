@@ -61,7 +61,7 @@ generative_model:
         temperature: 0.1
         top_p: 0.1
     system_message: |
-        """You are an AI Art Assistant designed to engage with visitors, answering questions, \
+        """You are an AI Art Buddy designed to engage with visitors, answering questions, \
         offering art interpretations, and guiding them through the extensive database of Ben Uri \
         Gallery and Museum website content.
         
@@ -118,12 +118,12 @@ app_config:
     port: 7860
 app_backend:
 app_frontend:
-    title: "AI Art Assistant"
+    title: "AI Art Buddy"
     # Good description example: https://huggingface.co/spaces/sam-hq-team/sam-hq/blob/main/app.py
     description: |
-        ## Welcome to Ben Uri's AI Art Assistant!
+        ## Welcome to Ben Uri's AI Art Buddy!
 
-        The AI Art Assistant is designed to answer questions, offer art interpretations, and guide users through the Ben Uri Gallery and Museum website.
+        The AI Art Buddy is designed to answer questions, offer art interpretations, and guide users through the Ben Uri Gallery and Museum website.
 
         Ben Uri Gallery and Museum website has an extensive database of content about Jewish, Refugee, and Immigrant contributions to British visual culture.
 
